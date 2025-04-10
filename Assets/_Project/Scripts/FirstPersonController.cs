@@ -13,6 +13,13 @@ namespace AE
         public float mouseSensitivity = 300f;
         public Camera playerCamera;
 
+        [Header("Audio Settings")]
+        public AudioClip footstepClip; 
+        public float footstepInterval = 0.4f;
+
+        private AudioSource audioSource;
+        private float footstepTimer = 0f;
+
         private CharacterController controller;
         private Vector3 verticalVelocity = Vector3.zero;
         private float xRotation = 0f;
@@ -22,6 +29,8 @@ namespace AE
             controller = GetComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            audioSource = GetComponent<AudioSource>();
         }
 
         void Update()
@@ -56,8 +65,8 @@ namespace AE
 
         void HandleLook()
         {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 0.01f;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 0.01f;
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -68,6 +77,14 @@ namespace AE
             }
 
             transform.Rotate(Vector3.up * mouseX);
+        }
+
+        void PlayFootstep()
+        {
+            if (footstepClip == null || audioSource == null) return;
+
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(footstepClip);
         }
     }
 }

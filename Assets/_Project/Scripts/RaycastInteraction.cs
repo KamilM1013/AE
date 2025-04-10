@@ -1,5 +1,5 @@
 using UnityEngine;
-using Unity.UI;
+using UnityEngine.UI;
 
 namespace AE
 {
@@ -11,6 +11,7 @@ namespace AE
         public Camera playerCamera;
 
         private IInteractable currentInteractable = null;
+        private OutlineObject outline = null;
 
         void Start()
         {
@@ -28,6 +29,7 @@ namespace AE
             if (Physics.Raycast(ray, out hitInfo, interactionDistance, interactableLayer))
             {
                 IInteractable interactable = hitInfo.collider.GetComponent<IInteractable>();
+                outline = hitInfo.transform.GetComponent<OutlineObject>();
 
                 if (interactable != null)
                 {
@@ -35,6 +37,10 @@ namespace AE
                     if (interactPromptUI != null)
                     {
                         interactPromptUI.SetActive(true);
+                    }
+                    if (outline != null)
+                    {
+                        outline.enabled = true;
                     }
 
                     if (Input.GetKeyDown(KeyCode.E))
@@ -49,6 +55,10 @@ namespace AE
                     {
                         interactPromptUI.SetActive(false);
                     }
+                    if (outline != null)
+                    {
+                        outline.enabled = false;
+                    }
                 }
             }
             else
@@ -57,6 +67,10 @@ namespace AE
                 if (interactPromptUI != null)
                 {
                     interactPromptUI.SetActive(false);
+                }
+                if (outline != null)
+                {
+                    outline.enabled = false;
                 }
             }
         }
