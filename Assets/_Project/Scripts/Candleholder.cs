@@ -15,17 +15,24 @@ namespace AE
 
         private bool isLit = false;
 
+        void Start()
+        {
+            flameEffect.SetActive(false);
+        }
+
         public void Interact()
         {
             if (!isUpright)
             {
-                transform.DORotate(uprightRotation, uprightAnimationTime)
+                Sequence sequence = DOTween.Sequence();
+                sequence.Join(transform.DORotate(uprightRotation, uprightAnimationTime));
+                sequence.Join(transform.DOMoveY(uprightPosition, 0.5f));
+                sequence.Play()
                     .OnComplete(() => 
                     {
                         isUpright = true;
                         Debug.Log("Candleholder is now upright");
                     });
-                transform.DOMoveY(uprightPosition, 0.5f);
             }
             else if (!isLit)
             {

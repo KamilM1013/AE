@@ -13,9 +13,6 @@ namespace AE
         public float mouseSensitivity = 300f;
         public Camera playerCamera;
 
-        [Header("Interaction Settings")]
-        public float interactionDistance = 3f;
-
         private CharacterController controller;
         private Vector3 verticalVelocity = Vector3.zero;
         private float xRotation = 0f;
@@ -31,7 +28,6 @@ namespace AE
         {
             HandleMovement();
             HandleLook();
-            HandleInteraction();
         }
 
         void HandleMovement()
@@ -72,22 +68,6 @@ namespace AE
             }
 
             transform.Rotate(Vector3.up * mouseX);
-        }
-
-        void HandleInteraction()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-                if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
-                {
-                    var interactable = hit.collider.GetComponent<IInteractable>();
-                    if (interactable != null)
-                    {
-                        interactable.Interact();
-                    }
-                }
-            }
         }
     }
 }
