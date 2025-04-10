@@ -41,6 +41,7 @@ namespace AE
                     flameEffect.SetActive(true);
                 } 
                 isLit = true;
+                PuzzleManager.Instance.RegisterCandlesLit();
                 Debug.Log("Candleholder is now lit");
             }
             else

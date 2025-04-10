@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3992925570703003545}
   - component: {fileID: 4678892744175037160}
   - component: {fileID: 2199596046494774461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CandleHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
