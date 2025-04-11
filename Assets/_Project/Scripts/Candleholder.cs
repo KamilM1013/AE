@@ -10,7 +10,8 @@ namespace AE
         public float uprightPosition = 0f;
         public float uprightAnimationTime = 3.0f;
 
-        public GameObject flameEffect;
+        public GameObject flameVFX;
+        public GameObject lightVFX;
         public AudioClip crackleSFX;
         public AudioClip scrapeSFX;
         public OutlineObject outline;
@@ -22,7 +23,7 @@ namespace AE
 
         void Start()
         {
-            flameEffect.SetActive(false);
+            flameVFX.SetActive(false);
             outline.enabled = false;
             audioSource = GetComponent<AudioSource>();
         }
@@ -50,9 +51,10 @@ namespace AE
             }
             else if (!isLit)
             {
-                if (flameEffect != null)
+                if (flameVFX != null && lightVFX != null)
                 {
-                    flameEffect.SetActive(true);
+                    flameVFX.SetActive(true);
+                    lightVFX.SetActive(true);
                 }
 
                 if (crackleSFX != null && audioSource != null)
